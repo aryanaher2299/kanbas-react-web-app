@@ -5,6 +5,7 @@ import './index.css';
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaFileImport } from "react-icons/fa";
 import { FaFileExport } from 'react-icons/fa6';
+import { LiaFilterSolid } from "react-icons/lia";
 
 export default function Grades() {
     return (
@@ -51,7 +52,7 @@ export default function Grades() {
                 </div>
 
                 <div className='row-2'>
-                <button className="btn btn-outline-secondary dropdown-toggle"><BsBoxArrowUp /> Apply Filters</button>
+                <button className="btn btn-outline-secondary dropdown-toggle"><LiaFilterSolid /> Apply Filters</button>
                 </div>
 
             </div>

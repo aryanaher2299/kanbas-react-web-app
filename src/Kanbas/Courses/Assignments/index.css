@@ -1,4 +1,3 @@
-
 #wd-assignments {
     margin: 20px;
 }
@@ -15,7 +14,6 @@
     margin-bottom: 10px;
 }
 
-/* index.css */
 .container {
     max-width: 900px;
     margin-top: 20px;
@@ -37,7 +35,8 @@ textarea {
     font-weight: bold;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
     margin-bottom: 1rem;
 }
 
