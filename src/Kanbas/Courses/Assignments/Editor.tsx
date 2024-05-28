@@ -1,19 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import { useParams } from 'react-router';
-import { assignments } from '../../Database';
+import { assignments, courses } from '../../Database';
 import EditorSubmissionType from './EditorSubmissionType';
+import { Link } from 'react-router-dom';
 
 
 export default function AssignmentEditor() {
 
-  // const {assignmentid} = useParams();
+  // const {assignment.id} = useParams();
   // console.log(`Assignment ID: ${assignmentid}`);
 
   // const courseAssignments = assignments.find((assignment) => assignment.id === assignmentid);
 
-  
-
+  const {cid} = useParams();
 
   const hashSegments = window.location.hash.split('/');
   const assignmentid = hashSegments[hashSegments.length - 1];
@@ -125,11 +125,11 @@ export default function AssignmentEditor() {
           <br />
 
           <div className="mb-3 row">
-            <div className="col-sm-10 offset-sm-2">
-              <button type="button" className="btn btn-secondary me-2">Cancel</button>
-              <button type="submit" className="btn btn-primary">Save</button>
-            </div>
+          <div className="col-sm-10 offset-sm-2">
+            <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-secondary me-2">Cancel</Link>
+            <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-primary">Save</Link>
           </div>
+        </div>
         </form>
 
     </div>
