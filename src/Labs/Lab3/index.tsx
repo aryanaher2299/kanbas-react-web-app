@@ -25,10 +25,14 @@ import Spreading from "./Spreading";
 import FunctionDestructing from "./FunctionDestructing";
 import DestructingImports from "./DestructingImports";
 import Classes from "./Classes";
+import Add from "./Add";
+import Square from "./Square";
+import Highlight from "./Highlight";
 
 export default function Lab3() {
   return (
     <div>
+      console.log('Hello World!');
       <h2>Lab 3</h2>
       <VariablesAndConstants />
       <VariableTypes />
@@ -38,28 +42,35 @@ export default function Lab3() {
       <ConditionalOutputIfElse />
       <ConditionalOutputInline />
       <LegacyFunctions />
-      <ArrowFunctions/>
-      <ImpliedReturn/>
-      <TemplateLiterals/>
-      <SimpleArrays/>
-      <ArrayIndexAndLength/>
-      <AddingAndRemovingToFromArrays/>
-      <ForLoops/>
-      <MapFunction/>
-      <FindFunction/>
-      <FindIndex/>
-      <FilterFunction/>
-      <JSONStringify/>
-      <Objects/>
-      <TodoItem/>
-      <TodoList/>
-      <Spreading/>
-      <FunctionDestructing/>
-      <DestructingImports/>
-      <Classes/>
-    
+      <ArrowFunctions />
+      <ImpliedReturn />
+      <TemplateLiterals />
+      <SimpleArrays />
+      <ArrayIndexAndLength />
+      <AddingAndRemovingToFromArrays />
+      <ForLoops />
+      <MapFunction />
+      <FindFunction />
+      <FindIndex />
+      <FilterFunction />
+      <JSONStringify />
+      <Objects />
+      <TodoItem />
+      <TodoList />
+      <Spreading />
+      <FunctionDestructing />
+      <DestructingImports />
+      <Classes />
+      <Add a={4} b={3} />
+      <h4>Square of 4</h4>
+      <Square>4</Square> <br />
+      <Highlight>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipitratione eaque illo minus cum, saepe totam
+        vel nihil repellat nemo explicabo excepturi consectetur. Modi omnis minus sequi maiores, provident voluptates.
+      </Highlight>
 
-      
+
+
 
     </div>
   );

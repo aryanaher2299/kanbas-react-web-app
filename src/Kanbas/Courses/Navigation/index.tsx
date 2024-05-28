@@ -1,30 +1,33 @@
 import "./index.css";
+import { Link, useLocation, useParams } from "react-router-dom";
+
+const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"];
+
 export default function CoursesNavigation() {
+    const { cid } = useParams(); // Get the course ID from the URL
+    const location = useLocation(); // Get the current URL path
+    console.log(cid);
+    console.log(location);
+
     return (
         <div id="wd-courses-navigation" className="list-group fs-5 rounded-0">
+            {links.map((link) => {
+                // Generate the path for each link
+                const path = `/Kanbas/Courses/${cid}/${link}`;
+                // Determine if the link is active based on the current URL path
+                const isActive = location.pathname === path;
 
-            <a id="wd-course-home-link" href="#/Kanbas/Courses/1234/Home"
-                className="list-group-item active border border-0"> Home </a>
-
-            <a id="wd-course-modules-link" href="#/Kanbas/Courses/1234/Modules"
-                className="list-group-item text-danger border border-0"> Modules </a>
-
-            <a id="wd-course-piazza-link" href="#/Kanbas/Courses/1234/Piazza"
-                className="list-group-item text-danger border border-0"> Piazza </a>
-
-            <a id="wd-course-zoom-link" href="#/Kanbas/Courses/1234/Zoom"
-                className="list-group-item text-danger border border-0"> Zoom </a>
-
-            <a id="wd-course-quizzes-link" href="#/Kanbas/Courses/1234/Assignments"
-                className="list-group-item text-danger border border-0"> Assignments </a>
-
-            <a id="wd-course-assignments-link" href="#/Kanbas/Courses/1234/Quizzes"
-                className="list-group-item text-danger border border-0"> Quizzes </a>
-
-            <a id="wd-course-grades-link" href="#/Kanbas/Courses/1234/Grades"
-                className="list-group-item text-danger border border-0"> Grades </a>
+                return (
+                    <Link
+                        key={link}
+                        id={`wd-course-${link.toLowerCase()}-link`}
+                        to={path}
+                        className={`list-group-item border border-0 ${isActive ? 'active' : 'text-danger'}`}
+                    >
+                        {link}
+                    </Link>
+                );
+            })}
         </div>
-
     );
 }
-
