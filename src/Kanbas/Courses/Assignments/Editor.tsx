@@ -1,137 +1,149 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
-import { useParams } from 'react-router';
-import { assignments, courses } from '../../Database';
-import EditorSubmissionType from './EditorSubmissionType';
-import { Link } from 'react-router-dom';
-
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addAssignment, updateAssignment } from './reducer';
+import assignments from '../../Database/assignments.json';
 
 export default function AssignmentEditor() {
+    const { cid, aid } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const existingAssignment = aid !== 'new' ? assignments.find((a) => a.id === aid) : null;
 
-  // const {assignment.id} = useParams();
-  // console.log(`Assignment ID: ${assignmentid}`);
+    const [assignment, setAssignment] = useState({
+        title: '',
+        description: '',
+        points: 100,
+        dueDate: '',
+        availableFromDate: '',
+        availableUntilDate: ''
+    });
 
-  // const courseAssignments = assignments.find((assignment) => assignment.id === assignmentid);
+    useEffect(() => {
+        if (existingAssignment) {
+            setAssignment({
+                title: existingAssignment.title,
+                description: 'The assignment is available online. Submit a link to the landing page of your web application running on Netlify.',
+                points: 100,
+                dueDate: '',
+                availableFromDate: '',
+                availableUntilDate: ''
+            });
+        } else {
+            setAssignment({
+                title: '',
+                description: 'The assignment is available online. Submit a link to the landing page of your web application running on Netlify.',
+                points: 100,
+                dueDate: '',
+                availableFromDate: '',
+                availableUntilDate: ''
+            });
+        }
+    }, [existingAssignment]);
 
-  const {cid} = useParams();
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setAssignment({ ...assignment, [e.target.name]: e.target.value });
+    };
 
-  const hashSegments = window.location.hash.split('/');
-  const assignmentid = hashSegments[hashSegments.length - 1];
-  
-  const courseAssignments = assignments.find(assignment => assignment.id === assignmentid);
+    const handleSave = () => {
+        const assignmentData = { ...assignment, course: cid };
+        if (aid === 'new') {
+            dispatch(addAssignment(assignmentData));
+        } else {
+            dispatch(updateAssignment({ ...assignmentData, id: aid }));
+        }
+        navigate(`/Kanbas/Courses/${cid}/Assignments`);
+    };
 
 
-  if(!assignmentid){
-    return (<h4>not found</h4>);
-  }
+    const handleCancel = () => {
+        navigate(`/Kanbas/Courses/${cid}/Assignments`);
+    };
 
-  return (
 
-    <div className="container mt-4">
-        
-        <form>
-
-          <div className="row">
-            <label htmlFor="assignmentName" className="col-form-label">Assignment Name</label>
-          </div>
-          <div className='row'>
-            <input type="text" className="form-control" id="assignmentName" defaultValue = {courseAssignments?.title} />
-          </div>
-
-          <div className="row">
-            <div className="col-sm-10">
-              <textarea className="form-control" id="assignmentDescription" rows={5} >
-                {courseAssignments?.description}
-              </textarea>
+    return (
+        <div className="container mt-4">
+            <div className="mb-3">
+                <label htmlFor="title" className="form-label">Assignment Name</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="title"
+                    name="title"
+                    value={assignment.title}
+                    onChange={handleChange}
+                />
             </div>
-          </div>
-
-          <div className="mb-3 row">
-            <label htmlFor="points" className="col-sm-2 col-form-label">Points</label>
-            <div className="col-sm-10">
-              <input type="number" className="form-control" id="points" defaultValue={courseAssignments?.points} />
+            <div className="mb-3">
+                <label htmlFor="description" className="form-label">Assignment Description</label>
+                <textarea
+                    className="form-control"
+                    id="description"
+                    name="description"
+                    value={assignment.description}
+                    onChange={handleChange}
+                ></textarea>
             </div>
-          </div>
-          
-
-          <div className="mb-3 row">
-            <label htmlFor="assignmentGroup" className="col-sm-2 col-form-label">Assignment Group</label>
-            <div className="col-sm-10">
-              <select className="form-select" id="assignmentGroup" defaultValue="ASSIGNMENTS">
-                <option value="ASSIGNMENTS">ASSIGNMENTS</option>
-              </select>
+            <div className="mb-3">
+                <label htmlFor="points" className="form-label">Points</label>
+                <input
+                    type="number"
+                    className="form-control"
+                    id="points"
+                    name="points"
+                    value={assignment.points}
+                    onChange={handleChange}
+                />
             </div>
-          </div>
-
-          <div className="mb-3 row">
-            <label htmlFor="displayGradeAs" className="col-sm-2 col-form-label">Display Grade As</label>
-            <div className="col-sm-10">
-              <select className="form-select" id="displayGradeAs" defaultValue="Percentage">
-                <option value="Percentage">Percentage</option>
-              </select>
-            </div>
-          </div>
-
-          <EditorSubmissionType />
-          <br />
-
-          <div className='container'>
-            <div className='row'>
-              <div className='col-sm-2'>
-                <label htmlFor="Assign" className='col-sm-2 col-form-label'>Assign</label>
-              </div>
-
-              <div className='col-sm-8'>
-                <div className='container border'>
-                  <div className='row'>
-                    <label htmlFor="assignTo" className="col-form-label">Assign To</label>
-                  </div>
-
-                  <div className='row ms-1 me-2'>
-                    <input type="text" className="form-control" id="assignTo" defaultValue="Everyone" />
-                  </div>
-
-                  <div className='row'>
-                    <label htmlFor="dueDate" className="col-form-label">Due</label>
-                  </div>
-                  <div className='row mb-2'>
-                    <input type="date" className="form-control" id="dueDate" defaultValue={courseAssignments?.duedate} />
-                  </div>
-
-                  <div className='row'>
-                    <div className='col'>
-                      <label htmlFor='availableFrom' className='col-form-label'>Available From</label>
-                    </div>
-                    <div className='col align-self-end'>
-                      <label htmlFor='until' className='col-form-label'>Until</label>
-                    </div>
-                  </div>
-
-                  <div className='row'>
-                    <div className='col align-self-start'>
-                      <input type="date" className="form-control" id="availableFrom" defaultValue={courseAssignments?.availabledate} />
-                    </div>
-                    <div className='col align-self-end'>
-                      <input type="date" className="form-control" id="Until" />
-                    </div>
-                  </div>
-
-
-
+            <div className="row">
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="dueDate" className="form-label">Due</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="dueDate"
+                        name="dueDate"
+                        value={assignment.dueDate}
+                        onChange={handleChange}
+                    />
                 </div>
-              </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="availableFromDate" className="form-label">Available from</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="availableFromDate"
+                        name="availableFromDate"
+                        value={assignment.availableFromDate}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="col-md-6 mb-3">
+                    <label htmlFor="availableUntilDate" className="form-label">Until</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="availableUntilDate"
+                        name="availableUntilDate"
+                        value={assignment.availableUntilDate}
+                        onChange={handleChange}
+                    />
+                </div>
             </div>
-          </div>
-          <br />
-
-          <div className="mb-3 row">
-          <div className="col-sm-10 offset-sm-2">
-            <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-secondary me-2">Cancel</Link>
-            <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-primary">Save</Link>
-          </div>
+            <div className="d-flex justify-content-end">
+                <button
+                    className="btn btn-secondary me-2"
+                    onClick={handleCancel}
+                >
+                    Cancel
+                </button>
+                <button
+                    className="btn btn-danger"
+                    onClick={handleSave}
+                >
+                    Save
+                </button>
+            </div>
         </div>
-        </form>
-
-    </div>
-  );
+    );
 }

@@ -48,7 +48,6 @@ export default function Modules() {
                                 editModule={(moduleId) => dispatch(editModule(moduleId))}
                             />
 
-                            {module && module.name}
                         </div>
 
                         {module.lessons && (
