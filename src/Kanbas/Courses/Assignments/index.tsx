@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BsSearch, BsPlus, BsGripVertical, BsTrash } from 'react-icons/bs';
-import { deleteAssignment } from './reducer';
+import { deleteAssignment, setAssignments } from './reducer';
 import "./index.css";
 import AssignmentControl from './AssignmentControl';
 import { IoEllipsisVertical } from 'react-icons/io5';
 import { FaBook } from 'react-icons/fa';
 import GreenCheckmark from './GreenCheckmark';
+import * as client from './client';
 
 export default function Assignments() {
     const { cid } = useParams<{ cid: string }>();
@@ -18,9 +19,25 @@ export default function Assignments() {
 
     const handleDelete = (aid: string) => {
         if (window.confirm('Are you sure you want to delete this assignment?')) {
-            dispatch(deleteAssignment(aid));
+            removeAssignment(aid);
         }
     };
+
+    const removeAssignment = async (aid: string) => {
+        await client.deleteAssignment(aid);
+        dispatch(deleteAssignment(aid));
+    };
+
+
+    const fetchAssignments = async () => {
+        const assignments = await client.getAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignments));
+    };
+
+    useEffect(() => {
+        fetchAssignments();
+    }, []);
+
 
     return (
 
