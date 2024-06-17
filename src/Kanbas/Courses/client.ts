@@ -18,7 +18,12 @@ export const createCourse = async (course: any) => {
     return response.data;
 };
 
-export const fetchAllCourses = async () => {
-    const { data } = await axios.get(COURSES_API);
-    return data;
+export const findAllCourses = async () => {
+    try {
+        const response = await axios.get(COURSES_API);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching courses:', error);
+        throw error;
+    }
 };

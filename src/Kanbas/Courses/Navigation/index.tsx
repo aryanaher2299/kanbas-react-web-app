@@ -1,7 +1,7 @@
 import "./index.css";
 import { Link, useLocation, useParams } from "react-router-dom";
 
-const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"];
+const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades", "People"];
 
 export default function CoursesNavigation() {
     const { cid } = useParams(); // Get the course ID from the URL
@@ -22,8 +22,7 @@ export default function CoursesNavigation() {
                         key={link}
                         id={`wd-course-${link.toLowerCase()}-link`}
                         to={path}
-                        className={`list-group-item border border-0 ${isActive ? 'active' : 'text-danger'}`}
-                    >
+                        className={`list-group-item border border-0 ${isActive ? 'active' : 'text-danger'}`}>
                         {link}
                     </Link>
                 );
