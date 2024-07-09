@@ -1,46 +1,85 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Kanbas React Web App
+## Overview
 
-## Available Scripts
+The Kanbas React Web App is a feature-rich, interactive application designed to manage tasks and projects using the Kanban methodology. It leverages modern web technologies including React.js, Redux, React Router, and integrates with a Node.js and MongoDB backend for data persistence.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Task Management**: Create, update, delete, and manage tasks.
+- **User Authentication**: Secure login and registration system.
+- **Real-Time Updates**: Reflects changes in real-time across different user sessions.
+- **Responsive Design**: Optimized for various devices using CSS and Bootstrap.
+- **API Integration**: Seamless interaction with backend services.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Project Structure
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Frontend (Kanbas React Web App)
+- **React Components**: Modular and reusable components.
+- **State Management**: Uses Redux for managing the application state.
+- **Routing**: Utilizes React Router for navigation.
+- **Styling**: CSS and Bootstrap for responsive design.
 
-### `npm test`
+### Backend (Kanbas Node Server App)
+- **Server Framework**: Node.js and Express.js for server-side logic.
+- **Database**: MongoDB for data storage.
+- **RESTful APIs**: Endpoints for CRUD operations and user authentication.
+- **Middleware**: Implements middleware for request handling and security.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup Instructions
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js and npm
+- MongoDB
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Clone the Repositories**:
+    ```bash
+    git clone https://github.com/aryanaher2299/kanbas-react-web-app.git
+    git clone https://github.com/aryanaher2299/kanbas-node-server-app.git
+    ```
 
-### `npm run eject`
+2. **Install Dependencies**:
+    ```bash
+    cd kanbas-react-web-app
+    npm install
+    cd ../kanbas-node-server-app
+    npm install
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. **Start the Backend Server**:
+    ```bash
+    cd kanbas-node-server-app
+    npm start
+    ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. **Start the Frontend Server**:
+    ```bash
+    cd ../kanbas-react-web-app
+    npm start
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+5. **Access the Application**:
+    Open your browser and navigate to `http://localhost:3000`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Configuration
+ **Backend**: Create a .env file and input `https://localhost:4000` to setup the backend connection 
+- **Environment Variables**: Set up environment variables for secret keys and database URIs.
 
-## Learn More
+## Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Frontend
+- **User Authentication**: Register and log in to manage tasks.
+- **Task Management**: Create new tasks, update existing ones, and organize them into different columns (To Do, In Progress, Done).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Backend
+- **API Endpoints**:
+    - **Authentication**: `/api/auth`
+    - **Tasks**: `/api/tasks`
+    - **Users**: `/api/users`
+
+## Contributing
+
+Feel free to fork the repository and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
